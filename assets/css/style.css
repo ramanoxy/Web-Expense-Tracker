@@ -1,0 +1,27 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+h4, h5, h6 {
+    font-weight: 500;
+}
+
+#totalIncome {
+    color: #198754; 
+}
+
+#totalExpense {
+    color: #dc3545; 
+}
+
+#balance {
+    color: #0d6efd; 
+}
+
+.table th {
+    background-color: #ffffff;
+}
