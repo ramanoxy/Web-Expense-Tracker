@@ -67,6 +67,7 @@ form.addEventListener('submit', function (e) {
 
     form.reset();
     renderTransactions();
+    renderChart();
 });
 
 function deleteTransaction(id) {
@@ -74,6 +75,40 @@ function deleteTransaction(id) {
     transactions = transactions.filter(trx => trx.id !== id);
     saveTransactions(transactions);
     renderTransactions();
+    renderChart();
 }
 
-renderTransactions();
+let chartInstance = null
+
+function renderChart() {
+    const transactions = getTransactions();
+
+    let income = 0;
+    let expense = 0;
+
+    transactions.forEach(trx => {
+        if (trx.type === 'income') income += trx.amount;
+        if (trx.type === 'expense') expense += trx.amount;
+    });
+
+    const ctx = document.getElementById('expenseChart');
+
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
+    chartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Pemasukan', 'Pengeluaran'],
+            datasets: [{
+                data: [income, expense]
+            }]
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    renderTransactions();
+    renderChart();
+});
